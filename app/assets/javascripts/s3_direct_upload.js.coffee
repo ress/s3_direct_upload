@@ -81,7 +81,7 @@ $.fn.S3Uploader = (options) ->
 
         data
 
-  formatBitrate: (bitrate) ->
+  formatBitrate = (bitrate) ->
     if typeof bits != 'number'
             return ''
 
@@ -96,7 +96,7 @@ $.fn.S3Uploader = (options) ->
 
     return bits + ' bit/s';
 
-  formatFileSize: (bytes) ->
+  formatFileSize = (bytes) ->
     if typeof bytes != 'number'
         return '';
 
