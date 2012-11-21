@@ -37,8 +37,12 @@ $.fn.S3Uploader = (options) ->
 
       progress: (e, data) ->
         if data.context
+          bitrate = formatBitrate(data.bitrate)
+          data_uploaded = formatFileSize(data.loaded)
+          data_left = formatFileSize(data.total)
           progress = parseInt(data.loaded / data.total * 100, 10)
           data.context.find('.bar').css('width', progress + '%')
+          data.context.find('.extended').html("#{bitrate} | #{data_uploaded} / #{data_left}")
 
       done: (e, data) ->
         content = build_content_object $uploadForm, data.files[0]
@@ -76,6 +80,33 @@ $.fn.S3Uploader = (options) ->
         data[1].value = settings.path + data[1].value
 
         data
+
+  formatBitrate: (bitrate) ->
+    if typeof bits != 'number'
+            return ''
+
+    if bits >= 1000000000
+        return (bits / 1000000000).toFixed(2) + ' Gbit/s'
+
+    if bits >= 1000000
+        return (bits / 1000000).toFixed(2) + ' Mbit/s'
+
+    if bits >= 1000
+        return (bits / 1000).toFixed(2) + ' kbit/s'
+
+    return bits + ' bit/s';
+
+  formatFileSize: (bytes) ->
+    if typeof bytes != 'number'
+        return '';
+
+    if bytes >= 1000000000
+        return (bytes / 1000000000).toFixed(2) + ' GB'
+
+    if bytes >= 1000000
+        return (bytes / 1000000).toFixed(2) + ' MB'
+
+    return (bytes / 1000).toFixed(2) + ' KB'
 
   build_content_object = ($uploadForm, file) ->
     domain = $uploadForm.attr('action')
