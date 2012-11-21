@@ -44,7 +44,7 @@ $.fn.S3Uploader = (options) ->
           data_left = formatFileSize(data.total)
           progress = parseInt(data.loaded / data.total * 100, 10)
           data.context.find('.bar').css('width', progress + '%')
-          data.context.find('.extended').html("#{bitrate} | #{data_uploaded} / #{data_left}")
+          data.context.find('.extended').html("#{data_uploaded} of #{data_left} (at #{bitrate})")
 
       done: (e, data) ->
         content = build_content_object $uploadForm, data.files[0]
