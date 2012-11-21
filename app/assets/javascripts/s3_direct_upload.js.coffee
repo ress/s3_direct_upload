@@ -27,6 +27,8 @@ $.fn.S3Uploader = (options) ->
   setUploadForm = ->
     $uploadForm.fileupload
 
+      bitrateInterval: 2000
+
       add: (e, data) ->
         current_files.push data
         file = data.files[0]
